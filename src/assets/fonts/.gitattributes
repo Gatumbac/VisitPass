@@ -1,0 +1,2 @@
+# Fonts are small and must be readable by plain Git checkouts, so they stay out of LFS.
+*.woff2 -filter -diff -merge -text

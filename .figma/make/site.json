@@ -1,0 +1,15 @@
+{
+  "title": "VisitPass",
+  "description": "VisitPass gestiona el ingreso de visitantes en ciudadelas privadas con autorizaciones, pases con código QR, bitácora digital y reportes para la administración.",
+  "language": "es",
+  "icons": {
+    "icon": "/favicon.svg"
+  },
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
