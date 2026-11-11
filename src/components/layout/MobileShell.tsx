@@ -1,22 +1,73 @@
 import type { ReactNode } from "react";
 import { AccountMenu } from "@/components/layout/AccountMenu";
-import { LogoMark } from "@/components/layout/Logo";
+import { registerDevice, useDeviceZoom } from "@/components/layout/frame";
+import { Logo, LogoMark } from "@/components/layout/Logo";
 import { cx } from "@/components/ui/controls";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { Link, usePath } from "@/lib/router";
-import { useAppState, useSession } from "@/lib/store";
+import { formatTime } from "@/lib/format";
+import { useAppState, useNow, useSession } from "@/lib/store";
 
 type NavItem = { to: string; label: string; icon: IconName; badge?: number };
 
-export function MobileFrame({ children, className }: { children: ReactNode; className?: string }) {
+function StatusBar() {
+  const nowMs = useNow(10_000);
   return (
-    <div
-      className={cx(
-        "mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper sm:border-x sm:border-line",
-        className,
-      )}
-    >
-      {children}
+    <div className="relative z-30 hidden h-9 shrink-0 items-center justify-between bg-inherit px-7 pt-1 font-mono text-[13px] font-semibold lg:flex">
+      <span>{formatTime(nowMs)}</span>
+      <span className="flex items-center gap-1.5">
+        <Icon name="wifi" size={15} />
+        <svg width="24" height="12" viewBox="0 0 24 12" aria-hidden="true">
+          <rect
+            x="0.5"
+            y="0.5"
+            width="20"
+            height="11"
+            rx="3"
+            fill="none"
+            stroke="currentColor"
+            opacity="0.5"
+          />
+          <rect x="2.5" y="2.5" width="13" height="7" rx="1.5" fill="currentColor" />
+          <rect x="21.5" y="4" width="2" height="4" rx="1" fill="currentColor" opacity="0.5" />
+        </svg>
+      </span>
+    </div>
+  );
+}
+
+type MobileFrameProps = { children: ReactNode; className?: string; bodyClassName?: string };
+
+export function MobileFrame({ children, className, bodyClassName }: MobileFrameProps) {
+  const zoom = useDeviceZoom();
+  return (
+    <div className="lg:relative lg:grid lg:min-h-dvh lg:place-items-center lg:bg-brand lg:p-6 lg:[background-image:radial-gradient(rgb(255_255_255/0.07)_1px,transparent_1px)] lg:[background-size:22px_22px]">
+      <div className="absolute top-6 left-8 hidden lg:block">
+        <Logo inverse />
+      </div>
+      {/* The transform makes the phone the containing block for fixed overlays portaled into it. */}
+      <div
+        ref={registerDevice}
+        style={{ zoom }}
+        className="lg:h-[864px] lg:w-[410px] lg:overflow-hidden lg:rounded-[48px] lg:border-[10px] lg:border-ink lg:shadow-2xl lg:[transform:translateZ(0)]"
+      >
+        <div
+          className={cx(
+            "mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper sm:border-x sm:border-line lg:h-full lg:min-h-0 lg:border-0",
+            className,
+          )}
+        >
+          <StatusBar />
+          <div
+            className={cx(
+              "flex flex-1 flex-col *:shrink-0 lg:overflow-y-auto lg:overscroll-contain lg:[scrollbar-width:none]",
+              bodyClassName,
+            )}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

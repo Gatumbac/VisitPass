@@ -1,4 +1,6 @@
 import { useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
+import { useFrameTarget } from "@/components/layout/frame";
 import { cx } from "@/components/ui/controls";
 import { Icon } from "@/components/ui/Icon";
 
@@ -32,9 +34,15 @@ const TONE_ICON = { ok: "check", info: "bell", warn: "alert" } as const;
 
 export function ToastHost() {
   const item = useSyncExternalStore(subscribe, () => current);
+  const frame = useFrameTarget();
   if (!item) return null;
-  return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-24 z-[60] flex justify-center px-4">
+  return createPortal(
+    <div
+      className={cx(
+        "pointer-events-none inset-x-0 bottom-24 z-[60] flex justify-center px-4",
+        frame ? "absolute" : "fixed",
+      )}
+    >
       <div
         key={item.id}
         role="status"
@@ -46,6 +54,7 @@ export function ToastHost() {
         <Icon name={TONE_ICON[item.tone]} size={18} className="shrink-0" />
         {item.message}
       </div>
-    </div>
+    </div>,
+    frame ?? document.body,
   );
 }

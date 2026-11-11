@@ -33,7 +33,7 @@ export function VisitorPass({ payload }: { payload: string }) {
 
   if (!shared) {
     return (
-      <MobileFrame className="px-4 py-6">
+      <MobileFrame bodyClassName="px-4 py-6">
         <Logo />
         <div className="mt-10">
           <EmptyState
@@ -67,7 +67,7 @@ export function VisitorPass({ payload }: { payload: string }) {
   const community = shared.community || state.settings.communityName;
 
   return (
-    <MobileFrame className="px-4 py-6">
+    <MobileFrame bodyClassName="px-4 py-6">
       <header className="flex items-center justify-between">
         <Logo />
         <Badge tone={status === "valid" ? "ok" : meta.tone}>

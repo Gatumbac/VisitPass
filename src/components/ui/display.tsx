@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { useFrameTarget } from "@/components/layout/frame";
 import { cx } from "@/components/ui/controls";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { initials } from "@/lib/format";
@@ -78,6 +79,7 @@ type SheetProps = {
 };
 
 export function Sheet({ title, onClose, children, wide }: SheetProps) {
+  const frame = useFrameTarget();
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -88,7 +90,10 @@ export function Sheet({ title, onClose, children, wide }: SheetProps) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-ink/45 sm:items-center sm:p-6"
+      className={cx(
+        "inset-0 z-50 flex items-end justify-center bg-ink/45",
+        frame ? "absolute" : "fixed sm:items-center sm:p-6",
+      )}
       onClick={onClose}
     >
       <div
@@ -97,7 +102,8 @@ export function Sheet({ title, onClose, children, wide }: SheetProps) {
         aria-label={title}
         onClick={(event) => event.stopPropagation()}
         className={cx(
-          "animate-rise max-h-[92dvh] w-full overflow-y-auto rounded-t-2xl border border-line bg-surface p-5 sm:rounded-2xl",
+          "animate-rise w-full overflow-y-auto rounded-t-2xl border border-line bg-surface p-5",
+          frame ? "max-h-[92%]" : "max-h-[92dvh] sm:rounded-2xl",
           wide ? "max-w-lg" : "max-w-[430px]",
         )}
       >
@@ -115,7 +121,7 @@ export function Sheet({ title, onClose, children, wide }: SheetProps) {
         {children}
       </div>
     </div>,
-    document.body,
+    frame ?? document.body,
   );
 }
 
