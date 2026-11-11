@@ -73,9 +73,9 @@ src/
 
 - **Figma Make**: `.figma/make/` holds the scripts Make uses to install,
   preview and publish the project. Keep that folder as is.
-- **GitHub Pages**: `.github/workflows/deploy.yml` builds and publishes on
-  every push to `main`. Pages must be enabled in the repository settings with
-  **GitHub Actions** as the source.
+- **Static hosting**: `pnpm run build` produces a static site in `dist/` that
+  any static host can serve. Routes live in the URL hash, so no rewrite rules
+  are needed.
 
 ## Fonts
 
