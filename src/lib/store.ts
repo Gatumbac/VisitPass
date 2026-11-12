@@ -448,7 +448,10 @@ export function useSession(): Account | null {
 }
 
 function readDeviceAccounts(): string {
-  return window.localStorage.getItem(DEVICE_ACCOUNTS_KEY) ?? "";
+  return (
+    window.localStorage.getItem(DEVICE_ACCOUNTS_KEY) ??
+    ACCOUNTS.map((account) => account.id).join(",")
+  );
 }
 
 export function useDeviceAccounts(): Account[] {

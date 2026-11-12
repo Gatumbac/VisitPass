@@ -16,6 +16,7 @@ import type { Account } from "@/lib/types";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD = 6;
+const SAVED_PASSWORD = "ceibos2026";
 
 type Errors = { email?: string; password?: string; form?: string };
 
@@ -32,7 +33,7 @@ export function Login() {
 
   const choose = (account: Account | null) => {
     setSelected(account);
-    setPassword("");
+    setPassword(account ? SAVED_PASSWORD : "");
     setErrors({});
     setRecoverySent(false);
   };
