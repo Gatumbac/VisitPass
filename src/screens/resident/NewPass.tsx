@@ -1,6 +1,15 @@
 import { useState, type FormEvent } from "react";
 import { MobileShell } from "@/components/layout/MobileShell";
-import { Button, cx, Field, Select, TextInput, TimeSelect, Toggle } from "@/components/ui/controls";
+import {
+  Button,
+  cx,
+  DateInput,
+  Field,
+  Select,
+  TextInput,
+  TimeSelect,
+  Toggle,
+} from "@/components/ui/controls";
 import { toast } from "@/components/ui/toast";
 import {
   dateKey,
@@ -220,15 +229,13 @@ export function NewPass() {
 
         {!recurring && (
           <Field label="Fecha" htmlFor="date" error={errors.date}>
-            <TextInput
+            <DateInput
               id="date"
-              type="date"
-              mono
               min={dateKey(now())}
               value={date}
               invalid={Boolean(errors.date)}
-              onChange={(event) => {
-                setDate(event.target.value);
+              onChange={(value) => {
+                setDate(value);
                 clear("date");
               }}
             />

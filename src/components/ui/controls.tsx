@@ -6,6 +6,7 @@ import type {
   TextareaHTMLAttributes,
 } from "react";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { formatDateNumeric } from "@/lib/format";
 import { Link } from "@/lib/router";
 
 export function cx(...parts: Array<string | false | null | undefined>): string {
@@ -143,6 +144,44 @@ export function TextInput({ invalid, mono, className, ...rest }: TextInputProps)
       className={controlClass(invalid, cx("h-12", mono && "font-mono", className))}
       {...rest}
     />
+  );
+}
+
+type DateInputProps = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "type" | "value" | "onChange" | "placeholder"
+> & {
+  value: string;
+  onChange: (value: string) => void;
+  invalid?: boolean;
+};
+
+export function DateInput({ value, onChange, invalid, className, ...rest }: DateInputProps) {
+  return (
+    <div
+      className={controlClass(
+        invalid,
+        cx(
+          "relative flex h-12 items-center justify-between gap-2 font-mono focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/20",
+          className,
+        ),
+      )}
+    >
+      <span aria-hidden className={cx(!value && "text-ink-muted/60")}>
+        {value ? formatDateNumeric(value) : "dd/mm/aaaa"}
+      </span>
+      <Icon name="calendar" size={18} className="shrink-0 text-ink-muted" />
+      {/* Native date inputs follow the browser language, so an English browser shows mm/dd/yyyy. The input stays for the picker and the text above is what people read. */}
+      <input
+        type="date"
+        aria-invalid={invalid || undefined}
+        className="absolute inset-0 size-full cursor-pointer opacity-0"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onClick={(event) => event.currentTarget.showPicker?.()}
+        {...rest}
+      />
+    </div>
   );
 }
 

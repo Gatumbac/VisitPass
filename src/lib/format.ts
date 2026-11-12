@@ -68,6 +68,11 @@ export function formatDay(input: number | string): string {
   return `${WEEKDAYS_SHORT[date.getDay()]} ${date.getDate()} ${MONTHS_SHORT[date.getMonth()]}`;
 }
 
+export function formatDateNumeric(key: string): string {
+  const [year, month, day] = key.split("-");
+  return `${day}/${month}/${year}`;
+}
+
 export function formatDayLong(input: number | string): string {
   const date = typeof input === "string" ? parseDateKey(input) : new Date(input);
   return `${WEEKDAYS_LONG[date.getDay()]} ${date.getDate()} de ${MONTHS_LONG[date.getMonth()]}`;

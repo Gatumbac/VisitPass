@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
-import { Button, Select, TextInput } from "@/components/ui/controls";
+import { Button, DateInput, Select, TextInput } from "@/components/ui/controls";
 import { Badge } from "@/components/ui/display";
 import { Icon } from "@/components/ui/Icon";
 import { Pagination, Table, Td, Th } from "@/components/ui/table";
@@ -94,14 +94,12 @@ export function AdminLog() {
             onChange={(event) => change(setQuery)(event.target.value)}
           />
         </div>
-        <TextInput
+        <DateInput
           aria-label="Fecha"
-          type="date"
-          mono
           min={dateKey(MONTH_START)}
           max={dateKey(nowMs)}
           value={day}
-          onChange={(event) => change(setDay)(event.target.value)}
+          onChange={change(setDay)}
         />
         <TextInput
           aria-label="Villa"
