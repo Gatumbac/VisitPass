@@ -12,15 +12,15 @@ import type {
   VisitType,
 } from "@/lib/types";
 
-export const STATE_VERSION = 3;
-export const APP_START = new Date(2026, 10, 28, 16, 2, 0).getTime();
+export const STATE_VERSION = 4;
+export const APP_START = new Date(2026, 10, 12, 16, 2, 0).getTime();
 export const MONTH_START = new Date(2026, 10, 1).getTime();
 export const RESIDENT_UNIT = 24;
 export const UNIT_COUNT = 120;
 
 const YEAR = 2026;
 const MONTH = 10;
-const TODAY = 28;
+const TODAY = 12;
 
 const FIRST_NAMES = [
   "María",
@@ -436,10 +436,10 @@ function createPasses(): Pass[] {
       visitorId: "0931176403",
       plate: "GTR-2057",
       type: "supplier",
-      date: dateKey(at(27, 0, 0)),
+      date: dateKey(at(TODAY - 1, 0, 0)),
       from: "10:00",
       to: "12:00",
-      createdAt: at(26, 18, 40),
+      createdAt: at(TODAY - 2, 18, 40),
     },
   ];
 }
@@ -451,7 +451,7 @@ function createIncidents(): Incident[] {
       kind: "unauthorized",
       description:
         "Un motociclista intentó ingresar detrás del vehículo de un residente. Se le negó el paso.",
-      at: at(6, 21, 40),
+      at: at(3, 21, 40),
       guardName: "Luis Cedeño",
     },
     {
@@ -459,7 +459,7 @@ function createIncidents(): Incident[] {
       kind: "rejected",
       description:
         "Vendedor a domicilio sin autorización. El residente rechazó la visita desde la aplicación.",
-      at: at(14, 13, 15),
+      at: at(6, 13, 15),
       guardName: "Pedro Quiñónez",
       unit: 73,
     },
@@ -468,7 +468,7 @@ function createIncidents(): Incident[] {
       kind: "incident",
       description:
         "La barrera de salida no respondió. Se operó de forma manual durante 20 minutos.",
-      at: at(19, 7, 25),
+      at: at(9, 7, 25),
       guardName: "Pedro Quiñónez",
     },
     {
@@ -476,7 +476,7 @@ function createIncidents(): Incident[] {
       kind: "other",
       description:
         "Camión de proveedor detenido frente a la garita en hora pico. Se pidió al conductor moverlo.",
-      at: at(25, 18, 50),
+      at: at(TODAY - 1, 18, 50),
       guardName: "Luis Cedeño",
       unit: 102,
     },

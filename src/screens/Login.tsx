@@ -89,7 +89,7 @@ export function Login() {
               Pase de visita
             </p>
             <p className="font-display text-xl leading-tight font-semibold">Villa 24</p>
-            <p className="mt-0.5 font-mono text-sm text-white/80">sáb 28 nov · 16h00 a 18h00</p>
+            <p className="mt-0.5 font-mono text-sm text-white/80">jue 12 nov · 16h00 a 18h00</p>
           </div>
         </div>
       </section>

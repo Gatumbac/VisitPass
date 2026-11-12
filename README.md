@@ -31,7 +31,7 @@ accepted.
 | Guard | `garita@losceibosdelrio.ec` |
 | Administrator | `administracion@losceibosdelrio.ec` |
 
-The app clock is fixed: it starts on Saturday 28 November 2026 at 16h02 and
+The app clock is fixed: it starts on Thursday 12 November 2026 at 16h02 and
 runs from there. Open `#/reset` to restore the sample data and the clock.
 
 On the guard's scan screen, **Escanear** reads the most recent valid pass.
